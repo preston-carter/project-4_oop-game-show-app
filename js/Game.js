@@ -14,11 +14,21 @@
   */
    createPhrases() {
      const phrasesInit = [
-       new Phrase('somewhere something incredible is waiting to be known'),
+       new Phrase('without science everything is a miracle'),
        new Phrase('you cannot blame gravity for falling in love'),
        new Phrase('not all those who wander are lost'),
-       new Phrase('the only true wisdom is in knowing you know nothing'),
-       new Phrase('it is during our darkest moments that we must focus to see the light')
+       new Phrase('science is magic that works'),
+       new Phrase('i solemnly swear that i am up to no good'),
+       new Phrase('do not let the muggles get you down'),
+       new Phrase('after all this time'),
+       new Phrase('one can never have enough socks'),
+       new Phrase('you are a wizard harry'),
+       new Phrase('moonlight drowns out all but the brightest stars'),
+       new Phrase('all is well that ends better'),
+       new Phrase('a wizard is never late'),
+       new Phrase('science the shit out of it'),
+       new Phrase('come on tars'),
+       new Phrase('this is no time for caution')
      ];
      return phrasesInit;
    }
@@ -45,12 +55,16 @@
   * displays if matched, removes life if not, checks if game is won,
   * checks if game is over
   */
-  handleInteraction(letter) {
-      if ( phrase.checkLetter(letter) ) {
-        phrase.showMatchedLetter(letter);
+  handleInteraction(button) {
+      let $key = button.text();
+      button.prop('disabled', true);
+      if ( this.activePhrase.checkLetter($key) ) {
+        this.activePhrase.showMatchedLetter($key);
+        button.addClass('chosen');
       }
       else {
         this.removeLife();
+        button.addClass('wrong');
       }
       if ( this.checkForWin() ) {
         this.gameOver();
@@ -99,7 +113,7 @@
   */
   gameOver() {
     $('#overlay').show();
-    if ( this.missed > 0 && this.checkForWin() ) {
+    if ( this.missed < 5 && this.checkForWin() ) {
       $('#overlay').removeClass('start').addClass('win');
       $('#overlay h1').text('Congrats, you win!');
     }
@@ -107,5 +121,19 @@
       $('#overlay').removeClass('start').addClass('lose');
       $('#overlay h1').text("You're out of lives, better luck next time!");
     }
+    /*
+    * When game is complete, reset the game board so that clicking
+    * 'start game' will load a new game
+    */
+    $('#phrase ul li').remove();
+    $('.key').each( (index, key) => {
+      $(key).prop('disabled', false);
+      $(key).removeClass('chosen');
+      $(key).removeClass('wrong');
+      $(key).addClass('key');
+    });
+    $('.tries img').each( (index, img) => {
+      $(img).attr('src','images/liveHeart.png');
+    });
   }
  }
