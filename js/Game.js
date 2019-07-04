@@ -38,7 +38,6 @@
     $('#overlay').hide();
     this.activePhrase = this.getRandomPhrase();
     this.activePhrase.addPhraseToDisplay();
-    return this.activePhrase;
   }
   /*
   * Handles all user interaction and associated methods when a user
@@ -46,22 +45,16 @@
   * displays if matched, removes life if not, checks if game is won,
   * checks if game is over
   */
-  handleInteraction() {
-    $('#keyrow').click( e => {
-      let chosenLetter = e.target;
-      if ( phrase.checkLetter(chosenLetter) ) {
-        phrase.showMatchedLetter(chosenLetter);
+  handleInteraction(letter) {
+      if ( phrase.checkLetter(letter) ) {
+        phrase.showMatchedLetter(letter);
       }
       else {
         this.removeLife();
       }
       if ( this.checkForWin() ) {
-        alert('Congrats, you win!');
+        this.gameOver();
       }
-      else if ( this.gameOver() ) {
-        alert('Sorry, you ran out of lives!');
-      }
-    });
   }
   /*
   * Checks for winning move
@@ -69,21 +62,50 @@
   won
   */
   checkForWin() {
-
-  }
+   if ( $('.hide').length > 0 ) {
+     return false;
+   }
+   else {
+     return true;
+   }
+ }
   /*
   * Increases the value of the missed property
   * Removes a life from the scoreboard
   * Checks if player has remaining lives and ends game if player is out
   */
   removeLife() {
-
+    this.missed += 1;
+    if ( this.missed == 1 ) {
+      $('.tries:eq(4) img').attr('src','images/lostHeart.png');
+    }
+    if ( this.missed == 2 ) {
+      $('.tries:eq(3) img').attr('src','images/lostHeart.png');
+    }
+    if ( this.missed == 3 ) {
+      $('.tries:eq(2) img').attr('src','images/lostHeart.png');
+    }
+    if ( this.missed == 4 ) {
+      $('.tries:eq(1) img').attr('src','images/lostHeart.png');
+    }
+    else if( this.missed == 5 ) {
+      $('.tries:eq(0) img').attr('src','images/lostHeart.png');
+      this.gameOver();
+    }
   }
   /*
   * Displays game over message
   * @param {boolean} gameWon - Whether or not the user won the game
   */
   gameOver() {
-
+    $('#overlay').show();
+    if ( this.missed > 0 && this.checkForWin() ) {
+      $('#overlay').removeClass('start').addClass('win');
+      $('#overlay h1').text('Congrats, you win!');
+    }
+    else {
+      $('#overlay').removeClass('start').addClass('lose');
+      $('#overlay h1').text("You're out of lives, better luck next time!");
+    }
   }
  }

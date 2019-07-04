@@ -17,7 +17,7 @@
         $phraseUL.append(`<li class="space"> </li>`);
       }
       else {
-        $phraseUL.append(`<li class="hide letter" ${char}>${char}</li>`);
+        $phraseUL.append(`<li class="hide letter ${char}">${char}</li>`);
       }
     });
   }
@@ -38,6 +38,8 @@
   * @param (string) letter - Letter to display
   */
   showMatchedLetter(letter) {
-    let matchedLetterLIs = $(`${letter}`);
+    let matchedLetterLIs = $(`.${letter}`);
+    matchedLetterLIs.removeClass('hide').addClass('show');
+
   }
  }
