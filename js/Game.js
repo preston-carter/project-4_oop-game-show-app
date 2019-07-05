@@ -56,15 +56,15 @@
   * checks if game is over
   */
   handleInteraction(button) {
-      let $key = button.text();
-      button.prop('disabled', true);
-      if ( this.activePhrase.checkLetter($key) ) {
-        this.activePhrase.showMatchedLetter($key);
-        button.addClass('chosen');
+      let $letter = $(button).text();
+      $(button).prop('disabled', true);
+      if ( this.activePhrase.checkLetter($letter) ) {
+        this.activePhrase.showMatchedLetter($letter);
+        $(button).addClass('chosen');
       }
       else {
         this.removeLife();
-        button.addClass('wrong');
+        $(button).addClass('wrong');
       }
       if ( this.checkForWin() ) {
         this.gameOver();
