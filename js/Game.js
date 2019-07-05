@@ -135,5 +135,6 @@
     $('.tries img').each( (index, img) => {
       $(img).attr('src','images/liveHeart.png');
     });
+    keyPressed = [];
   }
  }
