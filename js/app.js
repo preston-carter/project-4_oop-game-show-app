@@ -11,18 +11,20 @@ app.js
 ***/
 let game;
 let keyPressed = [];
+const $menu = $('#overlay');
+let $menuH1 = $('#overlay h1');
+const $keyButton = $('.key');
 
 $('#btn__reset').click( () => {
   game = new Game();
   game.startGame();
-  $('#overlay').removeClass('win').removeClass('lose');
   console.log(`Active Phrase - phrase: ${game.activePhrase.phrase}`);
 });
 /*
 * Handles onscreen keyboard button clicks
 * @param (HTMLButtonElement) button - The clicked button element
 */
-$('.key').click( (e) => {
+$keyButton.click( (e) => {
   let button = e.target;
   game.handleInteraction(button);
 });
@@ -31,8 +33,11 @@ $('.key').click( (e) => {
 */
 $(document).keyup( (e) => {
   let keyPress = e.key;
-  if ( !keyPressed.includes(keyPress) ) {
-    $('.key').each( (index, key) => {
+  if ( $menu.is(':visible') ) {
+    e.preventDefault;
+  }
+  else if ( !keyPressed.includes(keyPress) ) {
+    $keyButton.each( (index, key) => {
       if ( $(key).text() === keyPress ) {
         game.handleInteraction(key);
       }

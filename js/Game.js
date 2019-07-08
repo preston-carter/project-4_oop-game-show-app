@@ -45,7 +45,8 @@
   * Begins game by selecting a random phrase and displaying it to user
   */
   startGame() {
-    $('#overlay').hide();
+    $menu.fadeOut(2000);
+    keyPressed.length = 0;
     this.activePhrase = this.getRandomPhrase();
     this.activePhrase.addPhraseToDisplay();
   }
@@ -112,21 +113,21 @@
   * @param {boolean} gameWon - Whether or not the user won the game
   */
   gameOver() {
-    $('#overlay').show();
+    $menu.slideDown();
     if ( this.missed < 5 && this.checkForWin() ) {
-      $('#overlay').removeClass('start').addClass('win');
-      $('#overlay h1').text('Congrats, you win!');
+      $menu.removeClass('start').addClass('win');
+      $menuH1.text('Congrats, you win!');
     }
     else {
-      $('#overlay').removeClass('start').addClass('lose');
-      $('#overlay h1').text("You're out of lives, better luck next time!");
+      $menu.removeClass('start').addClass('lose');
+      $menuH1.text("You're out of lives, better luck next time!");
     }
     /*
     * When game is complete, reset the game board so that clicking
     * 'start game' will load a new game
     */
     $('#phrase ul li').remove();
-    $('.key').each( (index, key) => {
+    $keyButton.each( (index, key) => {
       $(key).prop('disabled', false);
       $(key).removeClass('chosen');
       $(key).removeClass('wrong');
@@ -135,6 +136,5 @@
     $('.tries img').each( (index, img) => {
       $(img).attr('src','images/liveHeart.png');
     });
-    keyPressed = [];
   }
  }
