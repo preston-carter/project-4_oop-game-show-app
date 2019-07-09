@@ -1,6 +1,10 @@
-/* Treehouse FSJS Techdegree
- * Project 4 - OOP Game App
- * Phrase.js */
+/******************************************
+Treehouse Techdegree:
+FSJS Project 4 - OOP Game App
+Developer: Preston Carter
+https://github.com/preston-carter
+Phrase.js
+******************************************/
 
  class Phrase {
    constructor(phrase) {

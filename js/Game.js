@@ -1,6 +1,10 @@
-/* Treehouse FSJS Techdegree
- * Project 4 - OOP Game App
- * Game.js */
+/******************************************
+Treehouse Techdegree:
+FSJS Project 4 - OOP Game App
+Developer: Preston Carter
+https://github.com/preston-carter
+Game.js
+******************************************/
 
  class Game {
    constructor() {
@@ -42,7 +46,10 @@
      return randomPhrase;
    }
    /*
-  * Begins game by selecting a random phrase and displaying it to user
+  * Begins game by transitioning from the overlay and selecting a random phrase
+  * and displaying it to user.  Also calls the game reset method and refreshes
+  * the keyPressed array to be empty, which prepares it to accept to new
+  * physical keyboard input entries from the user
   */
   startGame() {
     $menu.slideUp();
@@ -89,6 +96,7 @@
   * Increases the value of the missed property
   * Removes a life from the scoreboard
   * Checks if player has remaining lives and ends game if player is out
+  * Method is constructed such that the life loss transition is from right to left
   */
   removeLife() {
     this.missed += 1;
@@ -110,17 +118,17 @@
     }
   }
   /*
-  * Displays game over message
+  * Displays game over message + effect transition
   * @param {boolean} gameWon - Whether or not the user won the game
   */
   gameOver() {
     $menu.slideDown();
     if ( this.missed < 5 && this.checkForWin() ) {
-      $menu.removeClass('start').addClass('win');
+      $menu.removeClass('start').addClass('win').css("background-color", "#14a76c");
       $menuH1.text('Congrats, you win!');
     }
     else {
-      $menu.removeClass('start').addClass('lose');
+      $menu.removeClass('start').addClass('lose').css("background-color", "#D94545");;
       $menuH1.text("You're out of lives, better luck next time!");
     }
     /*

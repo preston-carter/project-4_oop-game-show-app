@@ -7,14 +7,16 @@ app.js
 ******************************************/
 
 /***
-  Initialize a new instance of the game and start when user clicks 'Start Game'
+  Global variables
 ***/
 let game;
-let keyPressed = [];
+let keyPressed = []; //Empty array used to track physical keyboard entries
 const $menu = $('#overlay');
 let $menuH1 = $('#overlay h1');
 const $keyButton = $('.key');
-
+/*
+* Initialize a new instance of the game and start when user clicks 'Start Game'
+*/
 $('#btn__reset').click( () => {
   game = new Game();
   game.startGame();
