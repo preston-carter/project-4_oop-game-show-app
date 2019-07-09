@@ -45,7 +45,8 @@
   * Begins game by selecting a random phrase and displaying it to user
   */
   startGame() {
-    $menu.fadeOut(2000);
+    $menu.slideUp();
+    game.gameReset();
     keyPressed.length = 0;
     this.activePhrase = this.getRandomPhrase();
     this.activePhrase.addPhraseToDisplay();
@@ -126,6 +127,8 @@
     * When game is complete, reset the game board so that clicking
     * 'start game' will load a new game
     */
+  }
+  gameReset() {
     $('#phrase ul li').remove();
     $keyButton.each( (index, key) => {
       $(key).prop('disabled', false);
@@ -136,5 +139,6 @@
     $('.tries img').each( (index, img) => {
       $(img).attr('src','images/liveHeart.png');
     });
+    $menu.removeClass('win').removeClass('lose');
   }
  }
